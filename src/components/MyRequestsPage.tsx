@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
@@ -22,7 +23,7 @@ export function MyRequestsPage() {
 
     try {
       setLoading(true);
-      const serverUrl = `https://${projectId}.supabase.co/functions/v1/make-server-336197dd`;
+      const serverUrl = `https://${projectId}.supabase.co/functions/make-server-336197dd`;
       const response = await fetch(`${serverUrl}/feedback`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`,
@@ -42,11 +43,11 @@ export function MyRequestsPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'in-progress': return 'bg-blue-100 text-blue-800';
-      case 'resolved': return 'bg-green-100 text-green-800';
-      case 'closed': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'pending': return 'bg-[#FEF3C7] text-[#F59E0B] border-[#F59E0B]';
+      case 'in-progress': return 'bg-[#DBEAFE] text-[#0F172A] border-[#0F172A]';
+      case 'resolved': return 'bg-[#D1FAE5] text-[#10B981] border-[#10B981]';
+      case 'closed': return 'bg-[#F1F5F9] text-[#64748B] border-[#94A3B8]';
+      default: return 'bg-[#F1F5F9] text-[#64748B] border-[#94A3B8]';
     }
   };
 
@@ -77,127 +78,199 @@ export function MyRequestsPage() {
   ];
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-gray-900 mb-2">My Requests</h1>
-        <p className="text-gray-600">Track and manage your feedback submissions across all departments</p>
-      </div>
+    <div className="space-y-8">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <h1 className="mb-3">My Requests</h1>
+        <p className="opacity-70">Track and manage your feedback submissions across all departments</p>
+      </motion.div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat, index) => (
-          <Card key={index}>
-            <CardContent className="pt-6">
-              <p className="text-gray-600 mb-1">{stat.label}</p>
-              <p className="text-gray-900">{stat.value}</p>
-            </CardContent>
-          </Card>
-        ))}
+        {stats.map((stat, index) => {
+          const colorSchemes = [
+            { bg: 'bg-primary', border: 'border-primary', shadow: 'shadow-[6px_6px_0px_0px_rgba(0,102,255,1)]', hover: 'hover:shadow-[8px_8px_0px_0px_rgba(0,102,255,1)]', text: 'text-primary' },
+            { bg: 'bg-accent', border: 'border-accent', shadow: 'shadow-[6px_6px_0px_0px_rgba(6,255,165,1)]', hover: 'hover:shadow-[8px_8px_0px_0px_rgba(6,255,165,1)]', text: 'text-accent' },
+            { bg: 'bg-secondary', border: 'border-secondary', shadow: 'shadow-[6px_6px_0px_0px_rgba(255,0,110,1)]', hover: 'hover:shadow-[8px_8px_0px_0px_rgba(255,0,110,1)]', text: 'text-secondary' },
+            { bg: 'bg-[#FFD60A]', border: 'border-[#FFD60A]', shadow: 'shadow-[6px_6px_0px_0px_rgba(255,214,10,1)]', hover: 'hover:shadow-[8px_8px_0px_0px_rgba(255,214,10,1)]', text: 'text-[#FFD60A]' },
+          ];
+          const scheme = colorSchemes[index % colorSchemes.length];
+          
+          return (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.5, 
+              delay: 0.1 + index * 0.05,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+          >
+            <div className={`bg-card border-4 ${scheme.border} ${scheme.shadow} ${scheme.hover} hover:scale-105 transition-all text-center p-6`}>
+              <p className={`${scheme.text} mb-2 uppercase tracking-wider`} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: 700 }}>{stat.label}</p>
+              <p className={scheme.text} style={{ fontFamily: 'var(--font-display)', fontSize: '2rem' }}>{stat.value}</p>
+            </div>
+          </motion.div>
+        );
+        })}
       </div>
 
       {/* Requests List */}
-      <Tabs defaultValue="all">
-        <TabsList>
-          <TabsTrigger value="all">All Requests</TabsTrigger>
-          <TabsTrigger value="pending">Pending</TabsTrigger>
-          <TabsTrigger value="in-progress">In Progress</TabsTrigger>
-          <TabsTrigger value="resolved">Resolved</TabsTrigger>
-        </TabsList>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Tabs defaultValue="all">
+          <div className="bg-secondary border-3 border-primary p-2 flex flex-wrap gap-2 mb-8">
+            <button
+              onClick={() => setActiveTab('all')}
+              className={`px-4 py-3 border-3 transition-all ${
+                activeTab === 'all'
+                  ? 'bg-accent text-primary border-primary shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]'
+                  : 'bg-card border-primary/30 hover:border-accent'
+              }`}
+              style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+            >
+              All Requests
+            </button>
+            <button
+              onClick={() => setActiveTab('pending')}
+              className={`px-4 py-3 border-3 transition-all ${
+                activeTab === 'pending'
+                  ? 'bg-accent text-primary border-primary shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]'
+                  : 'bg-card border-primary/30 hover:border-accent'
+              }`}
+              style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+            >
+              Pending
+            </button>
+            <button
+              onClick={() => setActiveTab('in-progress')}
+              className={`px-4 py-3 border-3 transition-all ${
+                activeTab === 'in-progress'
+                  ? 'bg-accent text-primary border-primary shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]'
+                  : 'bg-card border-primary/30 hover:border-accent'
+              }`}
+              style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+            >
+              In Progress
+            </button>
+            <button
+              onClick={() => setActiveTab('resolved')}
+              className={`px-4 py-3 border-3 transition-all ${
+                activeTab === 'resolved'
+                  ? 'bg-accent text-primary border-primary shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]'
+                  : 'bg-card border-primary/30 hover:border-accent'
+              }`}
+              style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+            >
+              Resolved
+            </button>
+          </div>
 
-        <TabsContent value="all" className="mt-6 space-y-4">
-          {requests.map((request) => {
-            const StatusIcon = getStatusIcon(request.status);
-            return (
-              <Card key={request.id} className="hover:shadow-md transition-shadow">
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <CardTitle>{request.subject}</CardTitle>
-                      </div>
-                      <CardDescription className="flex flex-wrap items-center gap-2">
-                        <span>{request.department}</span>
-                        <span>•</span>
-                        <span>ID: {request.id}</span>
-                        <span>•</span>
-                        <span>Submitted {request.submittedDate}</span>
-                      </CardDescription>
-                    </div>
-                    <div className="flex flex-col gap-2 items-end">
-                      <Badge className={getStatusColor(request.status)}>
-                        <StatusIcon className="w-3 h-3 mr-1" />
-                        {request.status.replace('-', ' ')}
-                      </Badge>
-                      <Badge variant={getPriorityVariant(request.priority)}>
-                        {request.priority}
-                      </Badge>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <p className="text-gray-600 mb-2">{request.description}</p>
-                    {request.response && (
-                      <div className="mt-3 p-4 bg-blue-50 rounded-lg border border-blue-100">
-                        <div className="flex items-center gap-2 mb-2">
-                          <MessageCircle className="w-4 h-4 text-blue-600" />
-                          <span className="text-blue-900">Department Response</span>
+          <TabsContent value="all" className="space-y-4">
+            {requests.map((request, index) => {
+              const StatusIcon = getStatusIcon(request.status);
+              return (
+                <motion.div
+                  key={request.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: index * 0.05,
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
+                >
+                  <div className="bg-card border-4 border-primary shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] hover:shadow-[12px_12px_0px_0px_rgba(15,23,42,1)] hover:translate-y-[-4px] transition-all">
+                    <div className="bg-secondary/10 border-b-4 border-primary p-6">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1">
+                          <h3 className="mb-2">{request.subject}</h3>
+                          <p className="opacity-70 flex flex-wrap items-center gap-2" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>
+                            <span>{request.department}</span>
+                            <span>•</span>
+                            <span>ID: {request.id}</span>
+                            <span>•</span>
+                            <span>Submitted {request.submittedDate}</span>
+                          </p>
                         </div>
-                        <p className="text-blue-800">{request.response}</p>
-                        <p className="text-blue-600 mt-2">Last updated: {request.lastUpdate}</p>
+                        <div className="flex flex-col gap-2 items-end">
+                          <span className={`${getStatusColor(request.status)} border-3 px-3 py-1 flex items-center gap-1 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]`} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase' }}>
+                            <StatusIcon className="w-3 h-3" />
+                            {request.status.replace('-', ' ')}
+                          </span>
+                          <span className={`${getPriorityVariant(request.priority) === 'destructive' ? 'bg-secondary text-white border-secondary' : getPriorityVariant(request.priority) === 'default' ? 'bg-primary text-white border-primary' : 'bg-foreground/20 text-foreground border-foreground/30'} border-3 px-3 py-1 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]`} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase' }}>
+                            {request.priority}
+                          </span>
+                        </div>
                       </div>
-                    )}
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <div className="flex gap-4 text-gray-600">
-                      <span className="flex items-center gap-1">
-                        <MessageCircle className="w-4 h-4" />
-                        {request.updates} updates
-                      </span>
-                      <Badge variant="outline">{request.category}</Badge>
                     </div>
-                    <Button variant="outline" className="gap-2">
-                      <Eye className="w-4 h-4" />
-                      View Details
-                    </Button>
+                    <div className="p-6 space-y-5">
+                      <div>
+                        <p className="opacity-80 mb-2" style={{ fontSize: '0.9375rem', lineHeight: 1.6 }}>{request.description}</p>
+                        {request.response && (
+                          <div className="mt-4 p-5 bg-accent/10 border-4 border-accent shadow-[4px_4px_0px_0px_rgba(6,255,165,1)]">
+                            <div className="flex items-center gap-2 mb-3">
+                              <MessageCircle className="w-5 h-5 text-accent" />
+                              <span className="text-accent" style={{ fontFamily: 'var(--font-display)', fontSize: '1.125rem' }}>Department Response</span>
+                            </div>
+                            <p className="mb-2" style={{ fontSize: '0.9375rem', lineHeight: 1.6 }}>{request.response}</p>
+                            <p className="opacity-70" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>Last updated: {request.lastUpdate}</p>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4 border-t-3 border-primary">
+                        <div className="flex gap-4 opacity-70">
+                          <span className="flex items-center gap-2" style={{ fontFamily: 'var(--font-mono)' }}>
+                            <MessageCircle className="w-4 h-4" />
+                            {request.updates} updates
+                          </span>
+                          <span className="px-3 py-1 bg-foreground/10 border-2 border-foreground/30" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: 700 }}>{request.category}</span>
+                        </div>
+                        <button className="bg-primary text-white border-3 border-primary px-5 py-2 flex items-center gap-2 hover:translate-x-1 transition-all shadow-[4px_4px_0px_0px_rgba(6,255,165,1)] hover:shadow-[6px_6px_0px_0px_rgba(6,255,165,1)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                          <Eye className="w-4 h-4" />
+                          View
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+                </motion.div>
+              );
+            })}
         </TabsContent>
 
-        <TabsContent value="pending" className="mt-6">
-          <Card>
-            <CardContent className="py-8 text-center">
-              <Clock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-gray-900 mb-2">Pending Requests</h3>
-              <p className="text-gray-600">Filter by pending status to see requests awaiting initial review</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
+          <TabsContent value="pending">
+            <div className="bg-card border-4 border-[#FFD60A] p-12 text-center shadow-[8px_8px_0px_0px_rgba(255,214,10,1)]">
+              <Clock className="w-16 h-16 mx-auto mb-6 text-[#FFD60A]" />
+              <h3 className="mb-3">Pending Requests</h3>
+              <p className="opacity-70">Filter by pending status to see requests awaiting initial review</p>
+            </div>
+          </TabsContent>
 
-        <TabsContent value="in-progress" className="mt-6">
-          <Card>
-            <CardContent className="py-8 text-center">
-              <AlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-gray-900 mb-2">In Progress Requests</h3>
-              <p className="text-gray-600">Filter by in-progress status to see active requests</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
+          <TabsContent value="in-progress">
+            <div className="bg-card border-4 border-primary p-12 text-center shadow-[8px_8px_0px_0px_rgba(0,102,255,1)]">
+              <AlertCircle className="w-16 h-16 mx-auto mb-6 text-primary" />
+              <h3 className="mb-3">In Progress Requests</h3>
+              <p className="opacity-70">Filter by in-progress status to see active requests</p>
+            </div>
+          </TabsContent>
 
-        <TabsContent value="resolved" className="mt-6">
-          <Card>
-            <CardContent className="py-8 text-center">
-              <CheckCircle2 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-gray-900 mb-2">Resolved Requests</h3>
-              <p className="text-gray-600">Filter by resolved status to see completed requests</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+          <TabsContent value="resolved">
+            <div className="bg-card border-4 border-accent p-12 text-center shadow-[8px_8px_0px_0px_rgba(6,255,165,1)]">
+              <CheckCircle2 className="w-16 h-16 mx-auto mb-6 text-accent" />
+              <h3 className="mb-3">Resolved Requests</h3>
+              <p className="opacity-70">Filter by resolved status to see completed requests</p>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </motion.div>
     </div>
   );
 }

@@ -42,69 +42,74 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <nav className="bg-[#0F172A] border-b border-[#334155] sticky top-0 z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center gap-8">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white">S</span>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#F59E0B] to-[#D97706] rounded-lg flex items-center justify-center transform hover:scale-110 transition-all duration-300 shadow-lg">
+                <span className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>S</span>
               </div>
-              <span className="text-gray-900">Student Hub</span>
+              <span className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>Student Hub</span>
             </div>
             
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center gap-2">
               {navItems.map((item) => {
                 const Icon = item.icon;
+                const isActive = currentPage === item.id;
                 return (
-                  <Button
+                  <button
                     key={item.id}
-                    variant={currentPage === item.id ? 'secondary' : 'ghost'}
                     onClick={() => onNavigate(item.id)}
-                    className="gap-2"
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 ${
+                      isActive 
+                        ? 'bg-[#F59E0B] text-white shadow-md hover:shadow-lg' 
+                        : 'bg-transparent text-[#94A3B8] hover:bg-[#1E293B] hover:text-white'
+                    }`}
+                    style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-4 h-4 inline-block mr-2" />
                     {item.label}
-                  </Button>
+                  </button>
                 );
               })}
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {/* Notifications */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative">
-                  <Bell className="w-5 h-5" />
+                <button className="relative w-11 h-11 bg-[#1E293B] rounded-lg hover:bg-[#334155] transition-all duration-300 flex items-center justify-center group">
+                  <Bell className="w-5 h-5 text-[#94A3B8] group-hover:text-[#F59E0B]" />
                   {unreadCount > 0 && (
-                    <Badge className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 bg-red-500">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-[#F59E0B] rounded-full text-white shadow-lg" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: 700 }}>
                       {unreadCount}
-                    </Badge>
+                    </span>
                   )}
-                </Button>
+                </button>
               </PopoverTrigger>
-              <PopoverContent className="w-80" align="end">
-                <div className="space-y-2">
-                  <h3 className="text-gray-900 mb-3">Notifications</h3>
+              <PopoverContent className="w-80 bg-white border border-[#E2E8F0] rounded-lg shadow-xl" align="end">
+                <div className="space-y-3">
+                  <h4 className="mb-4">Notifications</h4>
                   {notifications.length === 0 ? (
-                    <p className="text-gray-600 text-center py-4">No notifications</p>
+                    <p className="text-center py-6 text-[#64748B]" style={{ fontFamily: 'var(--font-mono)' }}>No notifications</p>
                   ) : (
-                    <div className="space-y-2 max-h-96 overflow-y-auto">
+                    <div className="space-y-3 max-h-96 overflow-y-auto">
                       {notifications.slice(0, 5).map((notification) => (
                         <div
                           key={notification.id}
                           onClick={() => handleNotificationClick(notification)}
-                          className={`p-3 rounded-lg border cursor-pointer hover:bg-gray-50 ${
-                            notification.read ? 'bg-white' : 'bg-blue-50 border-blue-200'
+                          className={`p-4 rounded-lg cursor-pointer transition-all duration-300 hover:translate-x-1 ${
+                            notification.read ? 'bg-[#F8F9FA] border border-[#E2E8F0]' : 'bg-[#FEF3C7] border border-[#F59E0B]'
                           }`}
                         >
-                          <div className="flex items-start gap-2">
-                            <Bell className="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-600" />
+                          <div className="flex items-start gap-3">
+                            <Bell className="w-5 h-5 mt-1 flex-shrink-0 text-[#F59E0B]" />
                             <div className="flex-1 min-w-0">
-                              <p className="text-gray-900">{notification.title}</p>
-                              <p className="text-gray-600 mt-1">{notification.message}</p>
-                              <p className="text-gray-500 mt-1">
+                              <p style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>{notification.title}</p>
+                              <p className="mt-1 text-[#64748B]" style={{ fontSize: '0.875rem' }}>{notification.message}</p>
+                              <p className="mt-2 text-[#94A3B8]" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}>
                                 {new Date(notification.timestamp).toLocaleDateString()}
                               </p>
                             </div>
@@ -120,28 +125,28 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
             {/* User Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <User className="w-5 h-5" />
-                </Button>
+                <button className="w-11 h-11 bg-gradient-to-br from-[#0F172A] to-[#1E293B] rounded-lg border border-[#F59E0B] hover:shadow-lg transition-all duration-300 flex items-center justify-center group">
+                  <User className="w-5 h-5 text-[#F59E0B]" />
+                </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="bg-white border border-[#E2E8F0] rounded-lg shadow-xl min-w-[200px]">
                 <DropdownMenuLabel>
                   <div>
-                    <p className="text-gray-900">{user?.name || 'Student'}</p>
-                    <p className="text-gray-500">{user?.email}</p>
+                    <p style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>{user?.name || 'Student'}</p>
+                    <p className="text-[#64748B]" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}>{user?.email}</p>
                   </div>
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => onNavigate('profile')}>
-                  <User className="w-4 h-4 mr-2" />
+                <DropdownMenuSeparator className="bg-[#E2E8F0]" />
+                <DropdownMenuItem onClick={() => onNavigate('profile')} className="hover:bg-[#F8F9FA] transition-all duration-200 cursor-pointer">
+                  <User className="w-4 h-4 mr-2 text-[#0F172A]" />
                   My Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onNavigate('requests')}>
-                  <FileText className="w-4 h-4 mr-2" />
+                <DropdownMenuItem onClick={() => onNavigate('requests')} className="hover:bg-[#F8F9FA] transition-all duration-200 cursor-pointer">
+                  <FileText className="w-4 h-4 mr-2 text-[#0F172A]" />
                   My Requests
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={signOut}>
+                <DropdownMenuSeparator className="bg-[#E2E8F0]" />
+                <DropdownMenuItem onClick={signOut} className="hover:bg-[#FEE2E2] text-[#DC2626] transition-all duration-200 cursor-pointer">
                   Sign Out
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -150,20 +155,24 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
         </div>
 
         {/* Mobile navigation */}
-        <div className="md:hidden flex items-center gap-1 pb-3 overflow-x-auto">
+        <div className="md:hidden flex items-center gap-2 pb-4 overflow-x-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
+            const isActive = currentPage === item.id;
             return (
-              <Button
+              <button
                 key={item.id}
-                variant={currentPage === item.id ? 'secondary' : 'ghost'}
                 onClick={() => onNavigate(item.id)}
-                size="sm"
-                className="gap-2 flex-shrink-0"
+                className={`px-3 py-2 rounded-lg flex-shrink-0 flex items-center gap-2 transition-all duration-300 ${
+                  isActive 
+                    ? 'bg-[#F59E0B] text-white' 
+                    : 'bg-transparent text-[#94A3B8] hover:bg-[#1E293B]'
+                }`}
+                style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase' }}
               >
                 <Icon className="w-4 h-4" />
                 {item.label}
-              </Button>
+              </button>
             );
           })}
         </div>

@@ -1,7 +1,7 @@
 import { projectId } from './supabase/info';
 
 export async function createSampleNotifications(userId: string, accessToken: string) {
-  const serverUrl = `https://${projectId}.supabase.co/functions/v1/make-server-336197dd`;
+  const serverUrl = `https://${projectId}.supabase.co/functions/make-server-336197dd`;
   
   const sampleNotifications = [
     {

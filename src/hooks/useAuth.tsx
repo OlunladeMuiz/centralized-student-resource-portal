@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const serverUrl = `https://${projectId}.supabase.co/functions/v1/make-server-336197dd`;
+  const serverUrl = `https://${projectId}.supabase.co/functions/make-server-336197dd`;
 
   const fetchProfile = async (token: string) => {
     try {
@@ -64,7 +64,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.error('Session error:', error);
+        // Clear invalid session
+        supabase.auth.signOut();
+        setUser(null);
+        setProfile(null);
+        setAccessToken(null);
+        setLoading(false);
+        return;
+      }
+      
       if (session?.user) {
         setUser({
           id: session.user.id,
@@ -74,6 +85,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAccessToken(session.access_token);
         fetchProfile(session.access_token);
       }
+      setLoading(false);
+    }).catch((error) => {
+      console.error('Auth error:', error);
+      // Clear invalid session
+      supabase.auth.signOut();
+      setUser(null);
+      setProfile(null);
+      setAccessToken(null);
       setLoading(false);
     });
 

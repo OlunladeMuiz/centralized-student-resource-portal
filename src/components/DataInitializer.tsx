@@ -13,7 +13,7 @@ export function DataInitializer() {
       }
 
       try {
-        const serverUrl = `https://${projectId}.supabase.co/functions/v1/make-server-336197dd`;
+        const serverUrl = `https://${projectId}.supabase.co/functions/make-server-336197dd`;
         const response = await fetch(`${serverUrl}/init-data`, {
           method: 'POST',
           headers: {

@@ -18,7 +18,7 @@ export function useNotifications() {
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const serverUrl = `https://${projectId}.supabase.co/functions/v1/make-server-336197dd`;
+  const serverUrl = `https://${projectId}.supabase.co/functions/make-server-336197dd`;
 
   const fetchNotifications = async () => {
     if (!accessToken) return;
@@ -38,7 +38,8 @@ export function useNotifications() {
         setUnreadCount(unread);
       }
     } catch (error) {
-      console.error('Error fetching notifications:', error);
+      // Silently fail - notifications are not critical
+      // console.error('Error fetching notifications:', error);
     } finally {
       setLoading(false);
     }
@@ -78,7 +79,8 @@ export function useNotifications() {
         setUnreadCount(data.count || 0);
       }
     } catch (error) {
-      console.error('Error fetching notification count:', error);
+      // Silently fail - notifications are not critical
+      // console.error('Error fetching notification count:', error);
     }
   };
 

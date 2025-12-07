@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -66,70 +67,107 @@ export function UserProfilePage() {
   };
 
   return (
-    <div className="space-y-6 max-w-4xl mx-auto">
-      <div>
-        <h1 className="text-gray-900 mb-2">My Profile</h1>
-        <p className="text-gray-600">Manage your account information and preferences</p>
-      </div>
+    <div className="space-y-8 max-w-5xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <h1 className="mb-2">My Profile</h1>
+        <p className="text-muted-foreground">Manage your account information and preferences</p>
+      </motion.div>
 
       {message && (
-        <Alert>
-          <AlertDescription>{message}</AlertDescription>
-        </Alert>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Alert className="border-4 border-accent shadow-[4px_4px_0px_0px_rgba(6,182,212,1)]">
+            <AlertDescription className="font-mono">{message}</AlertDescription>
+          </Alert>
+        </motion.div>
       )}
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-8">
         {/* Profile Card */}
-        <Card className="lg:col-span-1">
-          <CardContent className="pt-6">
-            <div className="flex flex-col items-center text-center">
-              <Avatar className="w-24 h-24 mb-4">
-                <AvatarFallback className="bg-blue-600 text-white text-2xl">
-                  {getInitials(user?.name)}
-                </AvatarFallback>
-              </Avatar>
-              <h2 className="text-gray-900 mb-1">{user?.name || 'Student'}</h2>
-              <p className="text-gray-600 mb-4">{user?.email}</p>
-              
-              <div className="w-full space-y-2 mt-4">
-                <div className="flex items-center gap-2 text-gray-600 justify-center">
-                  <Calendar className="w-4 h-4" />
-                  <span>Joined {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'Recently'}</span>
-                </div>
-                {profile?.notificationCount !== undefined && (
-                  <div className="flex items-center gap-2 text-gray-600 justify-center">
-                    <Mail className="w-4 h-4" />
-                    <span>{profile.notificationCount} unread notifications</span>
+        <motion.div
+          className="lg:col-span-1"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <Card className="border-4 border-border shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] sticky top-6">
+            <CardContent className="pt-8">
+              <div className="flex flex-col items-center text-center">
+                <motion.div
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Avatar className="w-28 h-28 mb-6 border-4 border-border shadow-[6px_6px_0px_0px_rgba(15,23,42,1)]">
+                    <AvatarFallback className="bg-primary text-primary-foreground font-display text-3xl">
+                      {getInitials(user?.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                </motion.div>
+                <h2 className="font-display mb-2">{user?.name || 'Student'}</h2>
+                <p className="text-muted-foreground font-mono mb-6">{user?.email}</p>
+                
+                <div className="w-full space-y-3 mt-4 p-4 bg-secondary/20 border-4 border-border">
+                  <div className="flex items-center gap-2 text-muted-foreground justify-center">
+                    <Calendar className="w-4 h-4" />
+                    <span className="font-mono">Joined {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'Recently'}</span>
                   </div>
-                )}
-              </div>
+                  {profile?.notificationCount !== undefined && (
+                    <div className="flex items-center gap-2 text-muted-foreground justify-center">
+                      <Mail className="w-4 h-4" />
+                      <span className="font-mono">{profile.notificationCount} unread notifications</span>
+                    </div>
+                  )}
+                </div>
 
-              <Button 
-                variant="outline" 
-                className="w-full mt-6 gap-2"
-                onClick={handleSignOut}
-              >
-                <LogOut className="w-4 h-4" />
-                Sign Out
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+                <motion.div className="w-full mt-6" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button 
+                    variant="outline" 
+                    className="w-full gap-2 border-4 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] transition-all"
+                    onClick={handleSignOut}
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </Button>
+                </motion.div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Profile Information */}
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>Profile Information</CardTitle>
-                <CardDescription>Update your personal details</CardDescription>
+        <motion.div
+          className="lg:col-span-2"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <Card className="border-4 border-border shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
+            <CardHeader className="bg-secondary/20 border-b-4 border-border">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="font-display">Profile Information</CardTitle>
+                  <CardDescription className="font-mono">Update your personal details</CardDescription>
+                </div>
+                {!editing && (
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button 
+                      onClick={() => setEditing(true)}
+                      className="shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] transition-all"
+                    >
+                      Edit Profile
+                    </Button>
+                  </motion.div>
+                )}
               </div>
-              {!editing && (
-                <Button onClick={() => setEditing(true)}>Edit Profile</Button>
-              )}
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
+            </CardHeader>
+            <CardContent className="space-y-6 pt-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
@@ -184,48 +222,84 @@ export function UserProfilePage() {
               </div>
             </div>
 
-            {editing && (
-              <div className="flex gap-2 pt-4">
-                <Button onClick={handleSave} disabled={saving} className="gap-2">
-                  <Save className="w-4 h-4" />
-                  {saving ? 'Saving...' : 'Save Changes'}
-                </Button>
-                <Button variant="outline" onClick={() => setEditing(false)} disabled={saving}>
-                  Cancel
-                </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+              {editing && (
+                <div className="flex gap-3 pt-4">
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button 
+                      onClick={handleSave} 
+                      disabled={saving} 
+                      className="gap-2 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] transition-all"
+                    >
+                      <Save className="w-4 h-4" />
+                      {saving ? 'Saving...' : 'Save Changes'}
+                    </Button>
+                  </motion.div>
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setEditing(false)} 
+                      disabled={saving}
+                      className="border-4 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] transition-all"
+                    >
+                      Cancel
+                    </Button>
+                  </motion.div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
 
       {/* Activity Summary */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Activity Summary</CardTitle>
-          <CardDescription>Your engagement with the Student Hub</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <p className="text-blue-900 mb-1">12</p>
-              <p className="text-blue-700">Feedback Submitted</p>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <Card className="border-4 border-border shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
+          <CardHeader className="bg-secondary/20 border-b-4 border-border">
+            <CardTitle className="font-display">Activity Summary</CardTitle>
+            <CardDescription className="font-mono">Your engagement with the Student Hub</CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <motion.div
+                className="text-center p-6 bg-accent/10 border-4 border-accent shadow-[4px_4px_0px_0px_rgba(6,182,212,1)]"
+                whileHover={{ scale: 1.05, rotate: 2 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <p className="font-display text-3xl text-accent mb-2">12</p>
+                <p className="text-accent font-mono uppercase tracking-wider">Feedback Submitted</p>
+              </motion.div>
+              <motion.div
+                className="text-center p-6 bg-[#10B981]/10 border-4 border-[#10B981] shadow-[4px_4px_0px_0px_#10B981]"
+                whileHover={{ scale: 1.05, rotate: -2 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <p className="font-display text-3xl text-[#10B981] mb-2">28</p>
+                <p className="text-[#10B981] font-mono uppercase tracking-wider">Resources Downloaded</p>
+              </motion.div>
+              <motion.div
+                className="text-center p-6 bg-[#8B5CF6]/10 border-4 border-[#8B5CF6] shadow-[4px_4px_0px_0px_#8B5CF6]"
+                whileHover={{ scale: 1.05, rotate: 2 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <p className="font-display text-3xl text-[#8B5CF6] mb-2">5</p>
+                <p className="text-[#8B5CF6] font-mono uppercase tracking-wider">Events Registered</p>
+              </motion.div>
+              <motion.div
+                className="text-center p-6 bg-[#F59E0B]/10 border-4 border-[#F59E0B] shadow-[4px_4px_0px_0px_#F59E0B]"
+                whileHover={{ scale: 1.05, rotate: -2 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <p className="font-display text-3xl text-[#F59E0B] mb-2">94%</p>
+                <p className="text-[#F59E0B] font-mono uppercase tracking-wider">Response Rate</p>
+              </motion.div>
             </div>
-            <div className="text-center p-4 bg-green-50 rounded-lg">
-              <p className="text-green-900 mb-1">28</p>
-              <p className="text-green-700">Resources Downloaded</p>
-            </div>
-            <div className="text-center p-4 bg-purple-50 rounded-lg">
-              <p className="text-purple-900 mb-1">5</p>
-              <p className="text-purple-700">Events Registered</p>
-            </div>
-            <div className="text-center p-4 bg-orange-50 rounded-lg">
-              <p className="text-orange-900 mb-1">94%</p>
-              <p className="text-orange-700">Response Rate</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </motion.div>
     </div>
   );
 }

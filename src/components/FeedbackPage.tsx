@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -51,7 +52,7 @@ export function FeedbackPage() {
     setSubmitting(true);
 
     try {
-      const serverUrl = `https://${projectId}.supabase.co/functions/v1/make-server-336197dd`;
+      const serverUrl = `https://${projectId}.supabase.co/functions/make-server-336197dd`;
       const response = await fetch(`${serverUrl}/feedback`, {
         method: 'POST',
         headers: {
@@ -101,30 +102,50 @@ export function FeedbackPage() {
   ];
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-gray-900 mb-2">Submit Feedback</h1>
-        <p className="text-gray-600">Share your thoughts, report issues, or ask questions to any department</p>
-      </div>
+    <div className="space-y-8">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <h1 className="mb-3">Submit Feedback</h1>
+        <p className="opacity-70">Share your thoughts, report issues, or ask questions to any department</p>
+      </motion.div>
 
       {submitted && (
-        <Alert className="bg-green-50 border-green-200">
-          <CheckCircle2 className="h-4 w-4 text-green-600" />
-          <AlertTitle className="text-green-900">Feedback Submitted Successfully!</AlertTitle>
-          <AlertDescription className="text-green-800">
-            Your feedback has been sent to the {formData.department} department. You'll receive a response within 24-48 hours.
-          </AlertDescription>
-        </Alert>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: -20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="bg-accent/10 border-4 border-accent p-6 shadow-[8px_8px_0px_0px_rgba(6,255,165,1)]">
+            <div className="flex items-start gap-4">
+              <CheckCircle2 className="h-8 w-8 text-accent flex-shrink-0" />
+              <div>
+                <h3 className="mb-2 text-accent">Feedback Submitted Successfully!</h3>
+                <p className="opacity-80" style={{ fontSize: '0.9375rem', lineHeight: 1.6 }}>
+                  Your feedback has been sent to the {formData.department} department. You'll receive a response within 24-48 hours.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       )}
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-8">
         {/* Main Form */}
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle>Feedback Form</CardTitle>
-            <CardDescription>Help us improve by sharing your feedback</CardDescription>
-          </CardHeader>
-          <CardContent>
+        <motion.div
+          className="lg:col-span-2"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="bg-card border-4 border-primary shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] hover:shadow-[12px_12px_0px_0px_rgba(15,23,42,1)] transition-all">
+            <div className="bg-secondary border-b-4 border-primary p-6">
+              <h3 className="mb-2 text-white">Feedback Form</h3>
+              <p className="text-white/90" style={{ fontSize: '0.9375rem', fontFamily: 'var(--font-body)' }}>Help us improve by sharing your feedback</p>
+            </div>
+            <div className="p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
@@ -217,62 +238,71 @@ export function FeedbackPage() {
                 </Label>
               </div>
 
-              <Button type="submit" className="w-full gap-2" disabled={submitting}>
-                <Send className="w-4 h-4" />
-                Submit Feedback
-              </Button>
+              <button 
+                type="submit" 
+                disabled={submitting}
+                className="w-full bg-primary text-white border-3 border-primary px-6 py-4 flex items-center justify-center gap-2 hover:translate-y-[-2px] transition-all shadow-[6px_6px_0px_0px_rgba(6,255,165,1)] hover:shadow-[8px_8px_0px_0px_rgba(6,255,165,1)] disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+              >
+                <Send className="w-5 h-5" />
+                {submitting ? 'Submitting...' : 'Submit Feedback'}
+              </button>
             </form>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
+        </motion.div>
 
         {/* Sidebar */}
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Why Your Feedback Matters</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+        <motion.div
+          className="space-y-6"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="bg-card border-4 border-accent shadow-[6px_6px_0px_0px_rgba(6,255,165,1)]">
+            <div className="bg-accent border-b-4 border-accent p-6">
+              <h3 className="text-primary">Why Your Feedback Matters</h3>
+            </div>
+            <div className="p-6 space-y-5">
               <div className="flex gap-3">
-                <MessageSquare className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                <MessageSquare className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-gray-900 mb-1">Direct Communication</h3>
-                  <p className="text-gray-600">Your feedback goes directly to the relevant department</p>
+                  <h4 className="mb-1" style={{ textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>Direct Communication</h4>
+                  <p className="opacity-70" style={{ fontSize: '0.9375rem' }}>Your feedback goes directly to the relevant department</p>
                 </div>
               </div>
               <div className="flex gap-3">
-                <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-gray-900 mb-1">Track Progress</h3>
-                  <p className="text-gray-600">Monitor the status of your submissions in real-time</p>
+                  <h4 className="mb-1" style={{ textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>Track Progress</h4>
+                  <p className="opacity-70" style={{ fontSize: '0.9375rem' }}>Monitor the status of your submissions in real-time</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Feedback Statistics</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <div className="bg-card border-4 border-[#FFD60A] shadow-[6px_6px_0px_0px_rgba(255,214,10,1)]">
+            <div className="bg-[#FFD60A] border-b-4 border-[#FFD60A] p-6">
+              <h3 className="text-primary">Feedback Statistics</h3>
+            </div>
+            <div className="p-6 space-y-4">
               {recentFeedbackStats.map((stat, index) => (
-                <div key={index} className="flex justify-between items-center">
-                  <span className="text-gray-600">{stat.label}</span>
-                  <span className="text-gray-900">{stat.value}</span>
+                <div key={index} className="flex justify-between items-center pb-3 border-b-3 border-primary/20 last:border-0 last:pb-0">
+                  <span className="opacity-70" style={{ fontFamily: 'var(--font-mono)' }}>{stat.label}</span>
+                  <span className="text-[#FFD60A]" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{stat.value}</span>
                 </div>
               ))}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          <Card className="bg-blue-50 border-blue-200">
-            <CardContent className="pt-6">
-              <h3 className="text-blue-900 mb-2">Need Immediate Help?</h3>
-              <p className="text-blue-800 mb-4">For urgent matters, contact campus security or student services directly.</p>
-              <Button variant="outline" className="w-full border-blue-300 text-blue-900 hover:bg-blue-100">
-                Emergency Contacts
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+          <div className="bg-secondary/10 border-4 border-secondary p-6 shadow-[6px_6px_0px_0px_rgba(255,0,110,1)]">
+            <h3 className="mb-2 text-secondary">Need Immediate Help?</h3>
+            <p className="opacity-80 mb-4" style={{ fontSize: '0.9375rem', lineHeight: 1.6 }}>For urgent matters, contact campus security or student services directly.</p>
+            <button className="w-full bg-secondary text-white border-3 border-secondary px-5 py-3 flex items-center justify-center gap-2 hover:translate-y-[-2px] transition-all shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Emergency Contacts
+            </button>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
