@@ -46,10 +46,10 @@ function CourseRegistration() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <h1 className="mb-3">Course Registration</h1>
-      <p className="text-[#64748B] mb-8">Register for courses for the current semester</p>
+      <h1 className="mb-2 sm:mb-3 text-2xl sm:text-4xl">Course Registration</h1>
+      <p className="text-[#64748B] mb-6 sm:mb-8 text-sm sm:text-base">Register for courses for the current semester</p>
 
-      <div className="grid gap-4">
+      <div className="grid gap-3 sm:gap-4">
         {availableCourses.map((course, index) => (
           <motion.div
             key={course.code}
@@ -57,21 +57,21 @@ function CourseRegistration() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
           >
-            <Card className="border-2 border-[#0F172A] shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] transition-all">
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="flex items-center gap-2">
-                      <BookOpen className="w-5 h-5 text-[#F59E0B]" />
-                      {course.code} - {course.name}
+            <Card className="border-2 sm:border-2 border-[#0F172A] shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] sm:shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] hover:shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] sm:hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] transition-all">
+              <CardHeader className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
+                  <div className="flex-1">
+                    <CardTitle className="flex items-center gap-2 mb-2 text-lg sm:text-xl">
+                      <BookOpen className="w-4 sm:w-5 h-4 sm:h-5 text-[#F59E0B] flex-shrink-0" />
+                      <span className="line-clamp-2">{course.code} - {course.name}</span>
                     </CardTitle>
                     <CardDescription className="mt-2">
-                      <span className="text-[#0F172A]" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}>
+                      <span className="text-[#0F172A] text-xs sm:text-sm" style={{ fontFamily: 'var(--font-mono)' }}>
                         Instructor: {course.instructor} • Credits: {course.credits}
                       </span>
                     </CardDescription>
                   </div>
-                  <Button className="bg-[#10B981] hover:bg-[#059669] text-white border-2 border-[#0F172A] shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
+                  <Button className="bg-[#10B981] hover:bg-[#059669] text-white border-2 border-[#0F172A] shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm whitespace-nowrap">
                     Register
                   </Button>
                 </div>

@@ -52,10 +52,10 @@ function HostelReservation() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <h1 className="mb-3">Hostel Reservation</h1>
-      <p className="text-[#64748B] mb-8">Reserve your accommodation for the academic year</p>
+      <h1 className="mb-2 sm:mb-3 text-2xl sm:text-4xl">Hostel Reservation</h1>
+      <p className="text-[#64748B] mb-6 sm:mb-8 text-sm sm:text-base">Reserve your accommodation for the academic year</p>
 
-      <div className="grid gap-6">
+      <div className="grid gap-4 sm:gap-6">
         {availableRooms.map((room, index) => (
           <motion.div
             key={room.roomNo}
@@ -63,54 +63,54 @@ function HostelReservation() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
           >
-            <Card className="border-4 border-[#0F172A] shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] hover:shadow-[12px_12px_0px_0px_rgba(15,23,42,1)] transition-all">
-              <CardHeader>
-                <div className="flex justify-between items-start">
+            <Card className="border-3 sm:border-4 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] sm:shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] sm:hover:shadow-[12px_12px_0px_0px_rgba(15,23,42,1)] transition-all">
+              <CardHeader className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-0">
                   <div className="flex-1">
-                    <CardTitle className="flex items-center gap-2 mb-2">
-                      <Home className="w-6 h-6 text-[#F59E0B]" />
-                      {room.building} - Room {room.roomNo}
+                    <CardTitle className="flex items-center gap-2 mb-2 text-lg sm:text-2xl">
+                      <Home className="w-5 sm:w-6 h-5 sm:h-6 text-[#F59E0B] flex-shrink-0" />
+                      <span className="line-clamp-2">{room.building} - Room {room.roomNo}</span>
                     </CardTitle>
                     <CardDescription>
-                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>
                         {room.type}
                       </span>
                     </CardDescription>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl mb-1" style={{ fontFamily: 'var(--font-display)', color: '#F59E0B' }}>
+                    <div className="text-2xl sm:text-3xl mb-1" style={{ fontFamily: 'var(--font-display)', color: '#F59E0B' }}>
                       ${room.price}
                     </div>
-                    <span className="text-[#64748B]" style={{ fontSize: '0.75rem' }}>per year</span>
+                    <span className="text-[#64748B] text-xs sm:text-sm" style={{ fontSize: '0.75rem' }}>per year</span>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <Users className="w-5 h-5 text-[#64748B]" />
-                      <span style={{ fontFamily: 'var(--font-body)' }}>
+              <CardContent className="p-4 sm:p-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 mb-2 sm:mb-3">
+                      <Users className="w-4 sm:w-5 h-4 sm:h-5 text-[#64748B] flex-shrink-0" />
+                      <span style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.875rem, 2vw, 1rem)' }}>
                         Capacity: {room.capacity} {room.capacity === 1 ? 'person' : 'people'}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-[#64748B]" />
-                      <span style={{ fontFamily: 'var(--font-body)' }}>
+                      <Calendar className="w-4 sm:w-5 h-4 sm:h-5 text-[#64748B] flex-shrink-0" />
+                      <span style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.875rem, 2vw, 1rem)' }}>
                         Available: {room.capacity - room.occupied} {room.capacity - room.occupied === 1 ? 'space' : 'spaces'}
                       </span>
                     </div>
                   </div>
                   <div>
-                    <p className="mb-2" style={{ fontFamily: 'var(--font-body)', fontSize: '0.875rem', fontWeight: 600 }}>
+                    <p className="mb-2 text-xs sm:text-sm" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
                       Amenities:
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
                       {room.amenities.map(amenity => (
                         <span 
                           key={amenity}
-                          className="px-3 py-1 bg-[#F8F9FA] border-2 border-[#0F172A] rounded-full"
-                          style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}
+                          className="px-2 sm:px-3 py-1 bg-[#F8F9FA] border border-sm:border-2 border-[#0F172A] rounded-full"
+                          style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.75rem)', fontFamily: 'var(--font-mono)' }}
                         >
                           {amenity}
                         </span>
@@ -118,9 +118,9 @@ function HostelReservation() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-6 pt-6 border-t-2 border-[#E2E8F0]">
+                <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t-2 border-[#E2E8F0]">
                   <Button 
-                    className={`w-full py-6 border-2 border-[#0F172A] shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] ${
+                    className={`w-full py-4 sm:py-6 border-2 border-[#0F172A] shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] sm:shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] text-sm sm:text-base ${
                       room.occupied === room.capacity 
                         ? 'bg-[#64748B] hover:bg-[#475569] text-white cursor-not-allowed' 
                         : 'bg-[#10B981] hover:bg-[#059669] text-white'

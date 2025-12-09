@@ -108,14 +108,14 @@ export function ResourcesPage() {
   });
 
   return (
-    <div className="space-y-8 pb-32">
+    <div className="space-y-6 sm:space-y-8 pb-32">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h1 className="mb-3">Resource Library</h1>
-        <p className="opacity-70">Access guides, templates, and tools from all campus departments</p>
+        <h1 className="mb-2 sm:mb-3 text-2xl sm:text-4xl">Resource Library</h1>
+        <p className="opacity-70 text-sm sm:text-base">Access guides, templates, and tools from all campus departments</p>
       </motion.div>
 
       {/* Search Bar */}
@@ -124,14 +124,14 @@ export function ResourcesPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="bg-card border-4 border-primary p-6 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
+        <div className="bg-card border-3 sm:border-4 border-primary p-4 sm:p-6 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] sm:shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent" />
+            <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-accent" />
             <Input
-              placeholder="Search resources by title, department, or tags..."
+              placeholder="Search resources..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 h-14 border-3 border-primary bg-input-background focus:border-accent focus:shadow-[4px_4px_0px_0px_rgba(6,182,212,1)] transition-all"
+              className="pl-10 sm:pl-12 h-11 sm:h-14 border-2 sm:border-3 border-primary bg-input-background focus:border-accent focus:shadow-[2px_2px_0px_0px_rgba(6,182,212,1)] sm:focus:shadow-[4px_4px_0px_0px_rgba(6,182,212,1)] transition-all text-sm sm:text-base"
             />
           </div>
         </div>
@@ -144,8 +144,7 @@ export function ResourcesPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="bg-secondary border-3 border-primary p-2 flex flex-wrap gap-2">
-            {departments.map(dept => (
+          <div className="bg-secondary border-2 sm:border-3 border-primary p-2 flex flex-wrap gap-1 sm:gap-2 overflow-x-auto">            {departments.map(dept => (
               <button
                 key={dept.id}
                 onClick={() => setSelectedCategory(dept.id)}
@@ -165,8 +164,8 @@ export function ResourcesPage() {
           </div>
         </motion.div>
 
-        <TabsContent value={selectedCategory} className="mt-8">
-          <div className="grid gap-6 md:grid-cols-2">
+        <TabsContent value={selectedCategory} className="mt-6 sm:mt-8">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
             {filteredResources.map((resource, index) => {
               const Icon = resource.icon;
               return (
@@ -181,42 +180,42 @@ export function ResourcesPage() {
                   }}
                 >
                   <SpotlightCard 
-                    className="p-6 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_0px_rgba(15,23,42,1)] transition-all h-full"
+                    className="p-4 sm:p-6 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] sm:shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] hover:translate-y-[-2px] sm:hover:translate-y-[-4px] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] sm:hover:shadow-[12px_12px_0px_0px_rgba(15,23,42,1)] transition-all h-full"
                     spotlightColor="rgba(245, 158, 11, 0.2)"
                   >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-start gap-4 flex-1">
-                        <div className="w-12 h-12 bg-[#F59E0B] border-3 border-[#0F172A] flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-6 h-6 text-white" />
+                    <div className="flex items-start justify-between mb-4 gap-2">
+                      <div className="flex items-start gap-3 flex-1 min-w-0">
+                        <div className="w-10 sm:w-12 h-10 sm:h-12 bg-[#F59E0B] border-2 sm:border-3 border-[#0F172A] flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="mb-2">{resource.title}</h3>
-                          <p className="opacity-70" style={{ fontSize: '0.875rem' }}>{resource.department}</p>
+                          <h3 className="mb-1 text-base sm:text-lg line-clamp-2">{resource.title}</h3>
+                          <p className="opacity-70 text-xs sm:text-sm">{resource.department}</p>
                         </div>
                       </div>
-                      <span className="px-3 py-1 bg-[#FEF3C7] border-2 border-[#F59E0B]" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase' }}>
+                      <span className="px-2 sm:px-3 py-1 bg-[#FEF3C7] border border-sm:border-2 border-[#F59E0B] text-[#0F172A] text-xs sm:text-sm flex-shrink-0" style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.65rem, 1.5vw, 0.7rem)', fontWeight: 700, textTransform: 'uppercase' }}>
                         {resource.type}
                       </span>
                     </div>
                     
-                    <p className="mb-5" style={{ fontSize: '0.9375rem', lineHeight: 1.6 }}>{resource.description}</p>
+                    <p className="mb-4 sm:mb-5 text-sm sm:text-base" style={{ fontSize: 'clamp(0.875rem, 1.5vw, 0.9375rem)', lineHeight: 1.6 }}>{resource.description}</p>
                     
-                    <div className="flex flex-wrap gap-2 mb-5">
+                    <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-5">
                       {resource.tags.map(tag => (
-                        <span key={tag} className="px-3 py-1 bg-[#FEF3C7] border-2 border-[#F59E0B] text-[#0F172A]" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: 700 }}>
+                        <span key={tag} className="px-2 sm:px-3 py-1 bg-[#FEF3C7] border border-sm:border-2 border-[#F59E0B] text-[#0F172A] text-xs sm:text-sm" style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.65rem, 1.5vw, 0.7rem)', fontWeight: 700 }}>
                           {tag}
                         </span>
                       ))}
                     </div>
                     
-                    <div className="flex items-center justify-between pt-4 border-t-3 border-[#0F172A]">
-                      <span className="opacity-70" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-3 sm:pt-4 border-t-2 sm:border-t-3 border-[#0F172A]">
+                      <span className="opacity-70 text-xs sm:text-sm" style={{ fontFamily: 'var(--font-mono)' }}>
                         {resource.downloads.toLocaleString()} downloads
                       </span>
-                      <button className="bg-[#0F172A] text-white border-3 border-[#0F172A] px-5 py-3 flex items-center gap-2 hover:translate-x-1 transition-all shadow-[4px_4px_0px_0px_rgba(245,158,11,1)] hover:shadow-[6px_6px_0px_0px_rgba(245,158,11,1)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      <button className="bg-[#0F172A] text-white border-2 sm:border-3 border-[#0F172A] px-3 sm:px-5 py-2 sm:py-3 flex items-center gap-2 hover:translate-x-1 transition-all shadow-[2px_2px_0px_0px_rgba(245,158,11,1)] sm:shadow-[4px_4px_0px_0px_rgba(245,158,11,1)] hover:shadow-[3px_3px_0px_0px_rgba(245,158,11,1)] sm:hover:shadow-[6px_6px_0px_0px_rgba(245,158,11,1)] whitespace-nowrap" style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 'clamp(0.75rem, 1.5vw, 0.875rem)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                         {resource.type === 'Link' ? (
                           <>
-                            Open <ExternalLink className="w-4 h-4" />
+                            Open <ExternalLink className="w-3 sm:w-4 h-3 sm:h-4" />
                           </>
                         ) : (
                           <>
