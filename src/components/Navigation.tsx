@@ -1,9 +1,8 @@
-import { Home, BookOpen, MessageSquare, Building2, FileText, Bell, User, Menu, X } from 'lucide-react';
+import { Home, BookOpen, MessageSquare, Building2, FileText, Bell, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { useAuth } from '../hooks/useAuth';
 import { useNotifications } from '../hooks/useNotifications';
-import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,7 +25,6 @@ interface NavigationProps {
 export function Navigation({ currentPage, onNavigate }: NavigationProps) {
   const { user, signOut } = useAuth();
   const { notifications, unreadCount, markAsRead } = useNotifications();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'dashboard' as const, label: 'Dashboard', icon: Home },
@@ -45,17 +43,17 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
 
   return (
     <nav className="bg-[#0F172A] border-b border-[#334155] sticky top-0 z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-20">
-          <div className="flex items-center gap-4 sm:gap-8 flex-1">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-br from-[#F59E0B] to-[#D97706] rounded-lg flex items-center justify-center transform hover:scale-110 transition-all duration-300 shadow-lg">
-                <span className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.125rem, 3vw, 1.5rem)' }}>S</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          <div className="flex items-center gap-8">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#F59E0B] to-[#D97706] rounded-lg flex items-center justify-center transform hover:scale-110 transition-all duration-300 shadow-lg">
+                <span className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>S</span>
               </div>
-              <span className="text-white hidden sm:inline" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(0.875rem, 2vw, 1.25rem)' }}>Student Hub</span>
+              <span className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>Student Hub</span>
             </div>
             
-            <div className="hidden md:flex items-center gap-1 lg:gap-2">
+            <div className="hidden md:flex items-center gap-2">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = currentPage === item.id;
@@ -63,27 +61,27 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
                   <button
                     key={item.id}
                     onClick={() => onNavigate(item.id)}
-                    className={`px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 whitespace-nowrap ${
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 ${
                       isActive 
                         ? 'bg-[#F59E0B] text-white shadow-md hover:shadow-lg' 
                         : 'bg-transparent text-[#94A3B8] hover:bg-[#1E293B] hover:text-white'
                     }`}
-                    style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '0.75rem sm:0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+                    style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}
                   >
-                    <Icon className="w-4 h-4 inline-block mr-1 lg:mr-2" />
-                    <span className="hidden lg:inline">{item.label}</span>
+                    <Icon className="w-4 h-4 inline-block mr-2" />
+                    {item.label}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-3">
             {/* Notifications */}
             <Popover>
               <PopoverTrigger asChild>
-                <button className="relative w-10 sm:w-11 h-10 sm:h-11 bg-[#1E293B] rounded-lg hover:bg-[#334155] transition-all duration-300 flex items-center justify-center group">
-                  <Bell className="w-4 sm:w-5 h-4 sm:h-5 text-[#94A3B8] group-hover:text-[#F59E0B]" />
+                <button className="relative w-11 h-11 bg-[#1E293B] rounded-lg hover:bg-[#334155] transition-all duration-300 flex items-center justify-center group">
+                  <Bell className="w-5 h-5 text-[#94A3B8] group-hover:text-[#F59E0B]" />
                   {unreadCount > 0 && (
                     <span className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-[#F59E0B] rounded-full text-white shadow-lg" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: 700 }}>
                       {unreadCount}
@@ -154,29 +152,6 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-        </div>
-
-        {/* Mobile navigation */}
-        <div className="md:hidden flex items-center gap-2 pb-4 overflow-x-auto">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = currentPage === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => onNavigate(item.id)}
-                className={`px-3 py-2 rounded-lg flex-shrink-0 flex items-center gap-2 transition-all duration-300 ${
-                  isActive 
-                    ? 'bg-[#F59E0B] text-white' 
-                    : 'bg-transparent text-[#94A3B8] hover:bg-[#1E293B]'
-                }`}
-                style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase' }}
-              >
-                <Icon className="w-4 h-4" />
-                {item.label}
-              </button>
-            );
-          })}
         </div>
       </div>
     </nav>
