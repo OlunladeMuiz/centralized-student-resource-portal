@@ -132,7 +132,7 @@ export function FeedbackPage() {
         </motion.div>
       )}
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
         {/* Main Form */}
         <motion.div
           className="lg:col-span-2"
@@ -140,14 +140,14 @@ export function FeedbackPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="bg-card border-4 border-primary shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] hover:shadow-[12px_12px_0px_0px_rgba(15,23,42,1)] transition-all">
-            <div className="bg-secondary border-b-4 border-primary p-6">
-              <h3 className="mb-2 text-white">Feedback Form</h3>
-              <p className="text-white/90" style={{ fontSize: '0.9375rem', fontFamily: 'var(--font-body)' }}>Help us improve by sharing your feedback</p>
+          <div className="bg-card border-4 border-primary shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] md:shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] hover:shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] md:hover:shadow-[12px_12px_0px_0px_rgba(15,23,42,1)] transition-all">
+            <div className="bg-secondary border-b-4 border-primary p-4 sm:p-6">
+              <h3 className="mb-2 text-white text-lg sm:text-xl">Feedback Form</h3>
+              <p className="text-white/90 text-sm sm:text-base" style={{ fontSize: '0.9375rem', fontFamily: 'var(--font-body)' }}>Help us improve by sharing your feedback</p>
             </div>
-            <div className="p-6">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
+            <div className="p-4 sm:p-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="department">Department *</Label>
                   <Select

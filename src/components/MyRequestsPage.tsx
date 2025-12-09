@@ -89,7 +89,7 @@ export function MyRequestsPage() {
       </motion.div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((stat, index) => {
           const colorSchemes = [
             { bg: 'bg-primary', border: 'border-primary', shadow: 'shadow-[6px_6px_0px_0px_rgba(0,102,255,1)]', hover: 'hover:shadow-[8px_8px_0px_0px_rgba(0,102,255,1)]', text: 'text-primary' },
@@ -126,10 +126,10 @@ export function MyRequestsPage() {
         transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
         <Tabs defaultValue="all">
-          <div className="bg-secondary border-3 border-primary p-2 flex flex-wrap gap-2 mb-8">
+          <div className="bg-secondary border-3 border-primary p-2 flex flex-wrap gap-1 sm:gap-2 mb-8 overflow-x-auto">
             <button
               onClick={() => setActiveTab('all')}
-              className={`px-4 py-3 border-3 transition-all ${
+              className={`px-3 sm:px-4 py-2 sm:py-3 border-3 transition-all whitespace-nowrap text-xs sm:text-sm ${
                 activeTab === 'all'
                   ? 'bg-accent text-primary border-primary shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]'
                   : 'bg-card border-primary/30 hover:border-accent'

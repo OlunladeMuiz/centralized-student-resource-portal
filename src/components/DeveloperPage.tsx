@@ -144,8 +144,8 @@ export function DeveloperPage() {
             }}
           />
 
-          <div className="relative z-10 p-12">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="relative z-10 p-4 sm:p-8 lg:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
               {/* Developer Image */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -183,7 +183,7 @@ export function DeveloperPage() {
                     className="mb-4"
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '3.5rem',
+                      fontSize: 'clamp(1.875rem, 8vw, 3.5rem)',
                       fontWeight: 700,
                       lineHeight: 1.1,
                       background: 'linear-gradient(135deg, #0F172A 0%, #F59E0B 50%, #EF4444 100%)',
@@ -304,7 +304,7 @@ export function DeveloperPage() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {techStack.map((stack, idx) => (
               <motion.div
                 key={idx}
@@ -315,16 +315,16 @@ export function DeveloperPage() {
                 className="relative group"
               >
                 <div className="absolute -inset-1 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl blur opacity-0 group-hover:opacity-30 transition-opacity" />
-                <div className="relative border-4 border-[#0F172A] rounded-xl p-6 bg-gradient-to-br from-white to-gray-50 shadow-lg">
-                  <div className="text-4xl mb-3">{stack.icon}</div>
-                  <h3 className="font-bold text-xl mb-3 text-[#0F172A]" style={{ fontFamily: 'var(--font-mono)' }}>
+                <div className="relative border-4 border-[#0F172A] rounded-xl p-4 sm:p-6 bg-gradient-to-br from-white to-gray-50 shadow-lg">
+                  <div className="text-3xl sm:text-4xl mb-3">{stack.icon}</div>
+                  <h3 className="font-bold text-lg sm:text-xl mb-3 text-[#0F172A]" style={{ fontFamily: 'var(--font-mono)' }}>
                     {stack.category}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {stack.techs.map((tech, techIdx) => (
                       <Badge 
                         key={techIdx}
-                        className="px-3 py-1 bg-[#F59E0B] text-white border-2 border-[#0F172A]"
+                        className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-[#F59E0B] text-white border-2 border-[#0F172A]"
                       >
                         {tech}
                       </Badge>
@@ -343,14 +343,14 @@ export function DeveloperPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <Card className="p-10 border-4 border-[#0F172A] shadow-2xl bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50">
-          <div className="text-center mb-10">
+        <Card className="p-6 sm:p-8 lg:p-10 border-4 border-[#0F172A] shadow-2xl bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50">
+          <div className="text-center mb-8 sm:mb-10">
             <motion.h2
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '2.5rem',
+                fontSize: 'clamp(1.5rem, 6vw, 2.5rem)',
                 fontWeight: 700,
                 background: 'linear-gradient(135deg, #0F172A 0%, #F59E0B 50%, #EF4444 100%)',
                 WebkitBackgroundClip: 'text',
@@ -367,7 +367,7 @@ export function DeveloperPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-10">
             {achievements.map((achievement, idx) => {
               const Icon = achievement.icon;
               return (
@@ -395,7 +395,7 @@ export function DeveloperPage() {
           </div>
 
           {/* Project Recognition Metrics */}
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
             {projectRecognition.map((item, idx) => (
               <motion.div
                 key={idx}
@@ -410,13 +410,13 @@ export function DeveloperPage() {
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
-                    className={`text-5xl font-bold mb-2 bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}
+                    className={`text-3xl sm:text-5xl font-bold mb-2 bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}
                     style={{ fontFamily: 'var(--font-mono)' }}
                   >
                     {item.metric}
                   </motion.div>
-                  <p className="font-bold text-[#0F172A] mb-1">{item.label}</p>
-                  <p className="text-sm text-gray-600">{item.description}</p>
+                  <p className="font-bold text-xs sm:text-sm text-[#0F172A] mb-1">{item.label}</p>
+                  <p className="text-xs text-gray-600">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -430,8 +430,8 @@ export function DeveloperPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
       >
-        <Card className="p-10 border-4 border-[#0F172A] shadow-2xl bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-          <div className="flex items-center gap-4 mb-8">
+        <Card className="p-6 sm:p-8 lg:p-10 border-4 border-[#0F172A] shadow-2xl bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
             <motion.div
               animate={{ rotate: [0, 360] }}
               transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
@@ -443,7 +443,7 @@ export function DeveloperPage() {
               <h2
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '2.5rem',
+                  fontSize: 'clamp(1.25rem, 5vw, 2.5rem)',
                   fontWeight: 700,
                   color: '#0F172A',
                   textTransform: 'uppercase'
@@ -455,7 +455,7 @@ export function DeveloperPage() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {recruiterHighlights.map((highlight, idx) => (
               <motion.div
                 key={idx}
@@ -508,11 +508,11 @@ export function DeveloperPage() {
             Olunlade Abdulmuiz brings <strong>cutting-edge AI expertise</strong>, <strong>full-stack capabilities</strong>, 
             and <strong>production-ready code quality</strong> to your team. This project is proof of extraordinary talent.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <motion.button
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#EF4444] text-white border-4 border-white rounded-xl shadow-xl text-lg font-bold"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#F59E0B] to-[#EF4444] text-white border-4 border-white rounded-xl shadow-xl text-sm sm:text-lg font-bold"
               style={{ fontFamily: 'var(--font-mono)' }}
             >
               <ExternalLink className="w-5 h-5 inline mr-2" />
@@ -521,7 +521,7 @@ export function DeveloperPage() {
             <motion.button
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white text-[#0F172A] border-4 border-white rounded-xl shadow-xl text-lg font-bold"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#0F172A] border-4 border-white rounded-xl shadow-xl text-sm sm:text-lg font-bold"
               style={{ fontFamily: 'var(--font-mono)' }}
             >
               <Mail className="w-5 h-5 inline mr-2" />

@@ -40,41 +40,41 @@ function HostelPayment() {
       <h1 className="mb-3">Hostel Payment</h1>
       <p className="text-[#64748B] mb-8">Make payment for hostel accommodation</p>
 
-      <Card className="border-4 border-[#0F172A] shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CreditCard className="w-6 h-6 text-[#F59E0B]" />
+      <Card className="border-4 border-[#0F172A] shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] md:shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+            <CreditCard className="w-5 sm:w-6 h-5 sm:h-6 text-[#F59E0B]" />
             Hostel Fee Payment
           </CardTitle>
-          <CardDescription>Academic Year 2024/2025</CardDescription>
+          <CardDescription className="text-xs sm:text-sm">Academic Year 2024/2025</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="p-6 border-2 border-[#0F172A] rounded-lg bg-[#F8F9FA]">
-            <div className="flex justify-between items-center mb-4">
+        <CardContent className="space-y-4 sm:space-y-6 p-4 sm:p-6">
+          <div className="p-4 sm:p-6 border-2 border-[#0F172A] rounded-lg bg-[#F8F9FA] space-y-3">
+            <div className="flex justify-between items-center text-sm sm:text-base gap-2">
               <span style={{ fontFamily: 'var(--font-body)' }}>Hostel Type:</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700 }}>Standard Room (Shared)</span>
+              <span className="text-right font-semibold">Standard Room (Shared)</span>
             </div>
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center text-sm sm:text-base gap-2">
               <span style={{ fontFamily: 'var(--font-body)' }}>Duration:</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700 }}>Full Academic Year</span>
+              <span className="text-right font-semibold">Full Academic Year</span>
             </div>
-            <div className="flex justify-between items-center mb-6 pb-6 border-b-2 border-[#0F172A]">
+            <div className="flex justify-between items-center text-sm sm:text-base gap-2 pb-3 sm:pb-6 border-b-2 border-[#0F172A]">
               <span style={{ fontFamily: 'var(--font-body)' }}>Accommodation Fee:</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700 }}>$850.00</span>
+              <span className="text-right font-semibold">$850.00</span>
             </div>
-            <div className="flex justify-between items-center text-2xl mb-6">
-              <span style={{ fontFamily: 'var(--font-display)' }}>Total Amount:</span>
-              <span style={{ fontFamily: 'var(--font-display)', color: '#F59E0B' }}>$850.00</span>
+            <div className="flex justify-between items-center text-lg sm:text-2xl gap-2">
+              <span style={{ fontFamily: 'var(--font-display)' }}>Total:</span>
+              <span style={{ fontFamily: 'var(--font-display)', color: '#F59E0B' }} className="font-bold">$850.00</span>
             </div>
-            <Button className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white border-2 border-[#0F172A] shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] py-6">
-              <DollarSign className="w-5 h-5 mr-2" />
+            <Button className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white border-2 border-[#0F172A] shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] py-3 sm:py-6 text-sm sm:text-base">
+              <DollarSign className="w-4 sm:w-5 h-4 sm:h-5 mr-2" />
               Proceed to Payment
             </Button>
           </div>
 
-          <div className="p-4 border-2 border-[#3B82F6] rounded-lg bg-[#DBEAFE]">
-            <p className="text-[#1E40AF]" style={{ fontSize: '0.875rem', fontFamily: 'var(--font-mono)' }}>
-              💡 Payment can be made via Credit/Debit Card, Bank Transfer, or Mobile Money
+          <div className="p-3 sm:p-4 border-2 border-[#3B82F6] rounded-lg bg-[#DBEAFE]">
+            <p className="text-[#1E40AF] text-xs sm:text-sm">
+              💡 Payment via Credit/Debit Card, Bank Transfer, or Mobile Money
             </p>
           </div>
         </CardContent>
@@ -93,10 +93,10 @@ function TuitionFee() {
       <h1 className="mb-3">Tuition Fee Payment</h1>
       <p className="text-[#64748B] mb-8">Make payment for tuition fees</p>
 
-      <Card className="border-4 border-[#0F172A] shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CreditCard className="w-6 h-6 text-[#F59E0B]" />
+      <Card className="border-4 border-[#0F172A] shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] md:shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+            <CreditCard className="w-5 sm:w-6 h-5 sm:h-6 text-[#F59E0B]" />
             Tuition Fee Payment
           </CardTitle>
           <CardDescription>Semester 1, 2024/2025</CardDescription>

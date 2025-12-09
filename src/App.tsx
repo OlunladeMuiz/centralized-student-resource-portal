@@ -121,8 +121,10 @@ function MainApp() {
   return (
     <div className="min-h-screen">
       <Navigation currentPage={currentPage as any} onNavigate={(page) => setCurrentPage(page as PageType)} />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {renderPage()}
+      <main className="w-full min-h-screen">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-8 sm:py-12">
+          {renderPage()}
+        </div>
       </main>
       
       {/* Dark Mode Toggle - Top Right */}
