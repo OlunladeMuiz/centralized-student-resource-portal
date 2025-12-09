@@ -324,8 +324,7 @@ export function AICourseRecommender() {
                   View Details
                 </Button>
                 <Button
-                  variant="outline"
-                  className="border-2 border-[#0F172A]"
+                  className="bg-white border-2 border-[#0F172A] text-[#0F172A] hover:bg-[#F8F9FA]"
                 >
                   <Star className="w-4 h-4" />
                 </Button>
@@ -424,9 +423,8 @@ export function AICourseRecommender() {
                 Register for This Course
               </Button>
               <Button
-                variant="outline"
                 onClick={() => setSelectedCourse(null)}
-                className="border-2 border-[#0F172A]"
+                className="bg-white border-2 border-[#0F172A] text-[#0F172A] hover:bg-[#F8F9FA]"
               >
                 Close
               </Button>
