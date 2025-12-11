@@ -50,26 +50,6 @@ Tagline: One portal to discover, manage, and interact with student services — 
 
 Include any real metrics you have — even small improvements are impressive to recruiters.
 
-## CI, Testing & Quality (what I added)
-
-- `.github/workflows/ci.yml` — basic CI to run type checking, unit tests, and an e2e smoke test using Playwright.
-- `vitest.config.ts` and a sample unit test in `src/__tests__/sample.test.ts` — run with `npm run test`.
-- `playwright.config.ts` and a sample e2e test in `playwright/tests/example.spec.ts` — run with `npm run test:e2e` (Playwright requires browsers to be installed).
-- `.env.example` — added the required environment variables.
-
-How to run the e2e test locally (recommended to run dev server in a terminal first):
-
-```powershell
-npm run dev
-# in another terminal
-npx playwright install --with-deps
-npm run test:e2e
-```
-
-## Call to action
-
-- Want me to: create image placeholders in `assets/screenshots/`, generate a `README_FULL.md` with embedded GIFs and badges, or wire up a working Playwright CI step that starts the dev server during the workflow? Tell me which and I will implement it.
-
   # Centralized Student Resource Portal
   ## Running the code
 
@@ -115,46 +95,4 @@ npm run test:e2e
   - **Supabase-first backend**: Uses Supabase for authentication, persistent storage, and server-side functions.
   - **Performance**: Vite-based development for fast feedback and lightweight production builds.
 
-  **Developer Quick Start**
-
-  Prerequisites: Node.js (16+) and npm. Create a Supabase project and obtain the project keys.
-
-  Install dependencies:
-  ```powershell
-  npm i
-  ```
-
-  Start development server:
-  ```powershell
-  npm run dev
-  ```
-
-  Build for production:
-  ```powershell
-  npm run build
-  ```
-
-  Environment variables (example):
-  ```text
-  VITE_SUPABASE_URL=<your-supabase-url>
-  VITE_SUPABASE_ANON_KEY=<your-anon-key>
-  ```
-
-  Search the codebase for Supabase usage in `src/supabase/` and components that read env keys.
-
-  **Deployment**
-
-  - Build static assets with `npm run build` and host on Vercel, Netlify, or Cloudflare Pages.
-  - Ensure Supabase URL and keys are configured in the hosting environment.
-
-  **Resume / Interview Talking Points**
-
-  - Built a production-ready student portal using React, TypeScript, Vite, and Supabase.
-  - Designed and implemented AI features (chat assistant, study-plan recommender) to increase personalization.
-  - Implemented accessible, reusable UI components using Radix UI and a component library in `src/ui/`.
-  - Added analytics visualizations with `recharts` and smooth UX using `framer-motion`.
-
  
-
-  
-  
